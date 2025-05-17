@@ -1,39 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_firebase_project/home_page.dart';
-import 'package:flutter_firebase_project/register_page.dart';
+import 'package:flutter_firebase_project/pages/login_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void login() async {
+  void register() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await _auth.signInWithEmailAndPassword(
-            email: emailController.text.trim(),
-            password: passwordController.text.trim());
+        await _auth.createUserWithEmailAndPassword(
+          email: emailController.text.trim(),
+          password: passwordController.text.trim(),
+        );
 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Login berhasil!")),
+          const SnackBar(content: Text("Registrasi berhasil!")),
         );
 
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomePage()),
-        );
+        // Navigator.pop(context); // kembali ke login
+        Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Login gagal: ${e.toString()}")),
+          SnackBar(content: Text("Gagal registrasi: ${e.toString()}")),
         );
       }
     }
@@ -63,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Login")),
+      appBar: AppBar(title: const Text("Register")),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
@@ -81,13 +80,13 @@ class _LoginPageState extends State<LoginPage> {
               validator: passwordValidator,
             ),
             const SizedBox(height: 20),
-            ElevatedButton(onPressed: login, child: const Text('Login')),
+            ElevatedButton(onPressed: register, child: const Text('Register')),
             TextButton(
               onPressed: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const RegisterPage()));
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
               },
-              child: const Text("DON’T HAVE AN ACCOUNT?  Sign-up"),
+              child: const Text("ALREADY HAVE ACCOUNT?  Sign-in"),
             )
           ]),
         ),

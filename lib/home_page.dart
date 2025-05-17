@@ -15,8 +15,18 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
+      // appBar: AppBar(
+      //   title: const Text("Home Page"),
+      //   actions: [
+      //     IconButton(
+      //       onPressed: () => logout(context),
+      //       icon: const Icon(Icons.logout),
+      //     ),
+      //   ],
+      // ),
       appBar: AppBar(
-        title: const Text("Home Page"),
+        automaticallyImplyLeading: false, // ini akan menghilangkan tombol back
+        title: Center(child: const Text("Home Page")),
         actions: [
           IconButton(
             onPressed: () => logout(context),
@@ -24,6 +34,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
+
       body: Center(
         child: Column(
           mainAxisAlignment:

@@ -12,9 +12,15 @@ class _FavoritePageState extends State<FavoritePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // ini akan menghilangkan tombol back
-        title: Text("Favorite Page"),
-      ),
+          title: const Text(
+            'Favorites',
+            style: TextStyle(
+                fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.blue,
+          automaticallyImplyLeading: false,
+        ),
     );
   }
 }

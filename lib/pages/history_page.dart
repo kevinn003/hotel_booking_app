@@ -12,8 +12,14 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // ini akan menghilangkan tombol back
-        title: Text("History Page"),
+        title: const Text(
+          'History List',
+          style: TextStyle(
+              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
       ),
     );
   }

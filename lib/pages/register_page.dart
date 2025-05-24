@@ -115,21 +115,54 @@ class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  // void register() async {
+  //   if (_formKey.currentState!.validate()) {
+  //     // Add password confirmation logic if necessary
+  //     try {
+  //       await _auth.createUserWithEmailAndPassword(
+  //         email: emailController.text.trim(),
+  //         password: passwordController.text.trim(),
+  //       );
+
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         const SnackBar(content: Text("Registration successful!")),
+  //       );
+
+  //       Navigator.push(context,
+  //           MaterialPageRoute(builder: (context) => const LoginPage()));
+  //     } catch (e) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //         SnackBar(content: Text("Registration failed: ${e.toString()}")),
+  //       );
+  //     }
+  //   }
+  // }
+
   void register() async {
     if (_formKey.currentState!.validate()) {
-      // Add password confirmation logic if necessary
       try {
-        await _auth.createUserWithEmailAndPassword(
+        // Buat akun
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
           email: emailController.text.trim(),
           password: passwordController.text.trim(),
         );
+
+        // Set displayName setelah akun dibuat
+        await userCredential.user
+            ?.updateDisplayName(nameController.text.trim());
+        await userCredential.user?.reload(); // Reload user agar update terambil
+        FirebaseAuth.instance.currentUser; // Refresh referensi
 
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Registration successful!")),
         );
 
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginPage()));
+        // Arahkan ke login
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LoginPage()),
+        );
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Registration failed: ${e.toString()}")),

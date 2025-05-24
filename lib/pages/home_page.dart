@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_firebase_project/pages/login_page.dart';
 import 'package:flutter_firebase_project/services/check_auth.dart';
 
 class HomePage extends StatelessWidget {
@@ -33,15 +32,15 @@ class HomePage extends StatelessWidget {
       //     ),
       //   ],
       // ),
-      appBar: AppBar(
-        automaticallyImplyLeading: false, // ini akan menghilangkan tombol back
-        title: Center(child: const Text("Home Page")),
-        actions: [
-          IconButton(
-            onPressed: () => logout(context),
-            icon: const Icon(Icons.logout),
-          ),
-        ],
+       appBar: AppBar(
+        title: const Text(
+          'Home',
+          style: TextStyle(
+              fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        centerTitle: true,
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
       ),
 
       body: Center(

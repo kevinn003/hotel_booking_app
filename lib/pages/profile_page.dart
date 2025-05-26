@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_firebase_project/pages/change_password_page.dart';
 import 'package:flutter_firebase_project/pages/edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -122,7 +123,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     leading: const Icon(Icons.lock),
                     title: const Text('Change Password'),
                     onTap: () {
-                      // Change Password action
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ChangePasswordPage()),
+                      );
                     },
                   ),
                   const Divider(height: 1),
